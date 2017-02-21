@@ -9,11 +9,14 @@
    <children>
       <BorderPane prefHeight="319.0" prefWidth="347.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
-            <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#disconnectDB" text="Button" BorderPane.alignment="CENTER" />
          </right>
          <left>
             <Button mnemonicParsing="false" onAction="#connectDB" text="Button" BorderPane.alignment="CENTER" />
          </left>
+         <bottom>
+            <Button mnemonicParsing="false" onAction="#test" text="Button" BorderPane.alignment="CENTER" />
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

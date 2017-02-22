@@ -5,6 +5,16 @@
 // SQL command to check if oracle db notifs are still active:
 // select TABLE_NAME from USER_CHANGE_NOTIFICATION_REGS
 
+// Important note for remote host connection:
+// To make remote connection work, you need to use the IP address instead of hostname
+// in your start / run: netca  -> Local Net Service Name configuration
+
+// In case of a db Update, this sql might come handy: select * from table1 where rowid='AAAWc+AABAAAX9RAAE'
+// Further reading on rowid: https://www.experts-exchange.com/articles/931/Decoding-the-Oracle-ROWID-and-some-Base64-for-fun.html
+
+// The exported executable jar file has to be ran with: java.jar -jar exported.jar
+// to be able to see the console output
+
 package application;
 	
 import javafx.application.Application;

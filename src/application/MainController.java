@@ -39,7 +39,7 @@ public class MainController implements Initializable {
 	public void connectDB(ActionEvent event) throws SQLException{
 		System.out.println("The connectDB method starts");
 		conn = connect();
-		
+		System.out.println("Connection successful");
 		prop.setProperty(OracleConnection.DCN_NOTIFY_ROWIDS, "true");
 		dcr = conn
 				.registerDatabaseChangeNotification(prop);
@@ -74,7 +74,6 @@ public class MainController implements Initializable {
 						rs2.close();
 						stmt2.close();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					System.out.println();
@@ -85,9 +84,9 @@ public class MainController implements Initializable {
 			Statement stmt = conn.createStatement();
 			((OracleStatement) stmt).setDatabaseChangeRegistration(dcr);
 			ResultSet rs = stmt.executeQuery("select * from table1 where id=1");
-			while (rs.next()) {
-				System.out.println(rs.getString("col3"));
-			}
+//			while (rs.next()) {
+//				System.out.println(rs.getString("col3"));
+//			}
 			rs.close();
 			stmt.close();
 		} catch (SQLException ex) {
@@ -142,6 +141,7 @@ public class MainController implements Initializable {
 		} else {
 			URL = "jdbc:oracle:thin:system/password@//"+odbHostnameField.getText()+":1521/dbtracker1";
 		}
+		
 		return (OracleConnection) dr.connect(URL, prop);
 	}
 

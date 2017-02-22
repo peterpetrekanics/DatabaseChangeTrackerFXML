@@ -8,7 +8,9 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import oracle.jdbc.OracleConnection;
 import oracle.jdbc.OracleDriver;
 import oracle.jdbc.OracleStatement;
@@ -19,10 +21,12 @@ import oracle.jdbc.dcn.DatabaseChangeRegistration;
 public class MainController implements Initializable {
 	static final String USERNAME = "system";
 	static final String PASSWORD = "password";
-	static String URL = "jdbc:oracle:thin:system/password@//localhost:1521/dbtracker1";
+	static String URL = null;
 	OracleConnection conn = null;
 	Properties prop = null;
 	DatabaseChangeRegistration dcr = null;
+	@FXML
+    private TextField odbHostnameField;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -32,14 +36,6 @@ public class MainController implements Initializable {
 	
 	public void connectDB(ActionEvent event) throws SQLException{
 		System.out.println("The connectDB method starts");
-
-//		OracleDCN oracleDCN = new OracleDCN();
-//		try {
-//			oracleDCN.run();
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//		}
-		
 		conn = connect();
 		
 		prop.setProperty(OracleConnection.DCN_NOTIFY_ROWIDS, "true");
@@ -109,8 +105,15 @@ public class MainController implements Initializable {
 	OracleConnection connect() throws SQLException {
 		OracleDriver dr = new OracleDriver();
 		prop = new Properties();
+		prop.setProperty(OracleConnection.NTF_LOCAL_HOST,"192.168.0.2");
 		prop.setProperty("user", USERNAME);
 		prop.setProperty("password", PASSWORD);
+		if(odbHostnameField.getText().equals("")){
+			System.out.println("url null");
+			return null;
+		} else {
+			URL = "jdbc:oracle:thin:system/password@//"+odbHostnameField.getText()+":1521/dbtracker1";
+		}
 		return (OracleConnection) dr.connect(URL, prop);
 	}
 

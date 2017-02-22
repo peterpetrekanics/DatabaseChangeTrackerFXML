@@ -21,8 +21,9 @@ public class Main extends Application {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("MainView.fxml"));
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setTitle("Oracle database tracker");;
 			primaryStage.setScene(scene);
-			System.out.println("test1");
+//			System.out.println("test1");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

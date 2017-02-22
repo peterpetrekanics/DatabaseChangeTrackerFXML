@@ -17,6 +17,9 @@
          <bottom>
             <Button mnemonicParsing="false" onAction="#test" text="Check connection" BorderPane.alignment="CENTER" />
          </bottom>
+         <center>
+            <TextField fx:id="odbHostnameField" alignment="BOTTOM_CENTER" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

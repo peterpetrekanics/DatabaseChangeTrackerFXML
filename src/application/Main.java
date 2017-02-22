@@ -15,6 +15,9 @@
 // The exported executable jar file has to be ran with: java.jar -jar exported.jar
 // to be able to see the console output
 
+// TODO: implement the long types when printing the sql columns:
+// http://stackoverflow.com/questions/16882971/retrieve-entire-row-with-resultset
+
 package application;
 	
 import javafx.application.Application;

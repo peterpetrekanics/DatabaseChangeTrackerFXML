@@ -56,7 +56,7 @@ public class MainController implements Initializable {
 					Statement stmt2;
 					try {
 						stmt2 = conn.createStatement();
-						ResultSet rs2 = stmt2.executeQuery("select * from table1 where rowid='"+ myRowId +"'");
+						ResultSet rs2 = stmt2.executeQuery("select * from user_ where rowid='"+ myRowId +"'");
 						while (rs2.next()) {
 							ResultSetMetaData resultSetMetaData = rs2.getMetaData();
 					        for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
@@ -83,7 +83,7 @@ public class MainController implements Initializable {
 //			System.out.println(dcr.getState());
 			Statement stmt = conn.createStatement();
 			((OracleStatement) stmt).setDatabaseChangeRegistration(dcr);
-			ResultSet rs = stmt.executeQuery("select * from table1 where id=1");
+			ResultSet rs = stmt.executeQuery("select * from user_");
 //			while (rs.next()) {
 //				System.out.println(rs.getString("col3"));
 //			}
@@ -137,7 +137,7 @@ public class MainController implements Initializable {
 		if(odbHostnameField.getText().equals("")){
 //			System.out.println("url null");
 //			return null;
-			URL = "jdbc:oracle:thin:system/password@//localhost:1521/dbtracker1";
+			URL = "jdbc:oracle:thin:system/password@//localhost:1521/lrtest1";
 		} else {
 			URL = "jdbc:oracle:thin:system/password@//"+odbHostnameField.getText()+":1521/dbtracker1";
 		}

@@ -57,16 +57,41 @@ public class MainController implements Initializable {
 					try {
 						stmt2 = conn.createStatement();
 						ResultSet rs2 = stmt2.executeQuery("select * from user_ where rowid='"+ myRowId +"'");
+						ResultSetMetaData resultSetMetaData = rs2.getMetaData();
+						
 						while (rs2.next()) {
-							ResultSetMetaData resultSetMetaData = rs2.getMetaData();
-					        for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
-
+							int colCount = resultSetMetaData.getColumnCount();
+							for (int i = 1; i <= colCount ; i++) {
+					        	System.out.print(resultSetMetaData.getColumnName(i) + " ");
+							}
+							System.out.println();
+					        for (int i = 1; i <= colCount; i++) {
 					            int type = resultSetMetaData.getColumnType(i);
 					            System.out.print("| ");
 					            if (type == Types.VARCHAR || type == Types.CHAR) {
 					                 System.out.print(rs2.getString(i));
-					            } else {
+					            } else if (type == Types.LONGNVARCHAR || type == Types.LONGVARBINARY) {
 					                 System.out.print(rs2.getLong(i));
+					            } else if (type == Types.LONGVARCHAR) {
+					                 System.out.print(rs2.getLong(i));
+					            } else if (type == Types.ARRAY || type == Types.BIGINT) {
+					                 System.out.print(rs2.getInt(i));
+					            } else if (type == Types.BINARY || type == Types.BIT) {
+					                 System.out.print(rs2.getInt(i));
+					            } else if (type == Types.BLOB || type == Types.INTEGER) {
+					                 System.out.print(rs2.getInt(i));
+					            } else if (type == Types.DECIMAL || type == Types.DOUBLE) {
+					                 System.out.print(rs2.getInt(i));
+					            } else if (type == Types.FLOAT || type == Types.NUMERIC) {
+					                 System.out.print(rs2.getInt(i));
+					            } else if (type == Types.BOOLEAN) {
+					                 System.out.print(rs2.getBoolean(i));
+					            } else if (type == Types.DATE) {
+					                 System.out.print(rs2.getDate(i));
+					            } else if (type == Types.TIMESTAMP) {
+					                 System.out.print(rs2.getTimestamp(i));
+					            } else {
+					            	System.out.print(rs2.getShort(i));
 					            }
 					        }
 						}

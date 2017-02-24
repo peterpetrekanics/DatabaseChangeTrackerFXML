@@ -19,7 +19,7 @@
 // http://stackoverflow.com/questions/16882971/retrieve-entire-row-with-resultset
 
 package application;
-	
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -36,7 +36,6 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("Oracle database tracker");;
 			primaryStage.setScene(scene);
-//			System.out.println("test1");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

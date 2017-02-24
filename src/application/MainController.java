@@ -6,6 +6,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -29,6 +31,8 @@ public class MainController implements Initializable {
 	DatabaseChangeRegistration dcr = null;
 	@FXML
     private TextField odbHostnameField;
+	ResultSet rs;
+	Statement stmt;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -56,6 +60,7 @@ public class MainController implements Initializable {
 					Statement stmt2;
 					try {
 						stmt2 = conn.createStatement();
+//						ResultSet rs2 = stmt2.executeQuery("select * from table1 where rowid='"+ myRowId +"'");
 						ResultSet rs2 = stmt2.executeQuery("select * from user_ where rowid='"+ myRowId +"'");
 						ResultSetMetaData resultSetMetaData = rs2.getMetaData();
 						
@@ -106,14 +111,40 @@ public class MainController implements Initializable {
 			});
 //			System.out.println(dcr.getRegId());
 //			System.out.println(dcr.getState());
-			Statement stmt = conn.createStatement();
-			((OracleStatement) stmt).setDatabaseChangeRegistration(dcr);
-			ResultSet rs = stmt.executeQuery("select * from user_");
-//			while (rs.next()) {
-//				System.out.println(rs.getString("col3"));
-//			}
-			rs.close();
-			stmt.close();
+			
+			// Retrieve all tables from the database
+			List<String> allTables = new ArrayList<String>();
+			Statement stmtRegAllTables = conn.createStatement();
+			ResultSet rsRegAllTables = stmtRegAllTables.executeQuery("select TABLE_NAME from all_tables where owner = 'SYSTEM'");
+			while (rsRegAllTables.next()) {
+				String actualTable = rsRegAllTables.getString("TABLE_NAME");
+				allTables.add(actualTable);
+			}
+			rsRegAllTables.close();
+			stmtRegAllTables.close();
+			
+			// Register all tables in the database
+			String thisTable = "";
+//			System.out.println("test" + allTables.get(0));
+			for(int t=0; t<=allTables.size()-1; t++){
+				thisTable = allTables.get(t);
+//				System.out.println("current table: " + thisTable);
+				stmt = null;
+				stmt = conn.createStatement();
+				((OracleStatement) stmt).setDatabaseChangeRegistration(dcr);
+				rs = stmt.executeQuery("select * from " + thisTable);
+				rs.close();
+				stmt.close();
+			}
+			
+			
+			//see what tables are being monitored
+			String[] tableNames = dcr.getTables();
+			for (int i = 0; i < tableNames.length; i++) {
+			    System.out.println(tableNames[i]    + " has been registered.");
+			}
+			
+			
 		} catch (SQLException ex) {
 			if (conn != null) {
 				conn.unregisterDatabaseChangeNotification(dcr);
@@ -162,9 +193,11 @@ public class MainController implements Initializable {
 		if(odbHostnameField.getText().equals("")){
 //			System.out.println("url null");
 //			return null;
+//			URL = "jdbc:oracle:thin:system/password@//localhost:1521/dbtracker1";
 			URL = "jdbc:oracle:thin:system/password@//localhost:1521/lrtest1";
 		} else {
-			URL = "jdbc:oracle:thin:system/password@//"+odbHostnameField.getText()+":1521/dbtracker1";
+//			URL = "jdbc:oracle:thin:system/password@//"+odbHostnameField.getText()+":1521/dbtracker1";
+			URL = "jdbc:oracle:thin:system/password@//"+odbHostnameField.getText()+":1521/lrtest1";
 		}
 		
 		return (OracleConnection) dr.connect(URL, prop);

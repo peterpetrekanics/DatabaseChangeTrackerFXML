@@ -18,6 +18,9 @@
 // TODO: implement the long types when printing the sql columns:
 // http://stackoverflow.com/questions/16882971/retrieve-entire-row-with-resultset
 
+// TODO: overwrite first resultset where a fixed table name is used currently - it
+// should be flexibe, based on the db used
+
 package application;
 
 import javafx.application.Application;

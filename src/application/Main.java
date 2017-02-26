@@ -15,11 +15,8 @@
 // The exported executable jar file has to be ran with: java.jar -jar exported.jar
 // to be able to see the console output
 
-// TODO: implement the long types when printing the sql columns:
-// http://stackoverflow.com/questions/16882971/retrieve-entire-row-with-resultset
+// TODO: optional: ensure that getters are set up to retrieve values from all data types
 
-// TODO: overwrite first resultset where a fixed table name is used currently - it
-// should be flexibe, based on the db used
 
 package application;
 
@@ -37,7 +34,7 @@ public class Main extends Application {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("MainView.fxml"));
 			Scene scene = new Scene(root,500,300);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setTitle("Oracle database tracker");;
+			primaryStage.setTitle("Oracle database tracker");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

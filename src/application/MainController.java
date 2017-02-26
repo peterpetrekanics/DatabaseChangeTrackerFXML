@@ -23,9 +23,7 @@ import oracle.jdbc.dcn.DatabaseChangeListener;
 import oracle.jdbc.dcn.DatabaseChangeRegistration;
 
 public class MainController implements Initializable {
-	static final String USERNAME = "system";
-	static final String PASSWORD = "password";
-	static String URL = null;
+	String URL = null;
 	OracleConnection conn = null;
 	Properties prop = null;
 	DatabaseChangeRegistration dcr = null;
@@ -37,10 +35,13 @@ public class MainController implements Initializable {
 	ResultSet rs;
 	Statement stmt;
 	String actualTableName = "";
+	String userName = "";
+	String password = "";
+	String DB_name = "";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("this runs every time");
+		System.out.println("Welcome to DB Tracker");
 		
 		
 	}
@@ -49,8 +50,6 @@ public class MainController implements Initializable {
 		System.out.println("The connectDB method starts");
 		conn = connect();
 		System.out.println("Connection successful");
-		System.out.println(odbUsernameField.getText()+odbPasswordField.getText());
-		System.out.println(odbDB_nameField.getText());
 		prop.setProperty(OracleConnection.DCN_NOTIFY_ROWIDS, "true");
 		dcr = conn
 				.registerDatabaseChangeNotification(prop);
@@ -79,6 +78,7 @@ public class MainController implements Initializable {
 					        	System.out.print(resultSetMetaData.getColumnName(i) + " ");
 							}
 							System.out.println();
+							// This part of the code could be improved - we need to make sure that all data types are handled
 					        for (int i = 1; i <= colCount; i++) {
 					            int type = resultSetMetaData.getColumnType(i);
 					            System.out.print("| ");
@@ -195,18 +195,17 @@ public class MainController implements Initializable {
 	
 	OracleConnection connect() throws SQLException {
 		OracleDriver dr = new OracleDriver();
+		userName = odbUsernameField.getText();
+		password = odbPasswordField.getText();
+		DB_name = odbDB_nameField.getText();
 		prop = new Properties();
 //		prop.setProperty(OracleConnection.NTF_LOCAL_HOST,"192.168.0.2");
-		prop.setProperty("user", USERNAME);
-		prop.setProperty("password", PASSWORD);
+		prop.setProperty("user", userName);
+		prop.setProperty("password", password);
 		if(odbIP_addressField.getText().equals("")){
-//			System.out.println("url null");
-//			return null;
-			URL = "jdbc:oracle:thin:system/password@//localhost:1521/dbtracker1";
-//			URL = "jdbc:oracle:thin:system/password@//localhost:1521/lrtest1";
+			URL = "jdbc:oracle:thin:"+userName+"/"+password+"@//localhost:1521/" + DB_name;
 		} else {
-			URL = "jdbc:oracle:thin:system/password@//"+odbIP_addressField.getText()+":1521/dbtracker1";
-//			URL = "jdbc:oracle:thin:system/password@//"+odbIP_addressField.getText()+":1521/lrtest1";
+			URL = "jdbc:oracle:thin:"+userName+"/"+password+"@//"+odbIP_addressField.getText()+":1521/"+ DB_name;
 		}
 		
 		return (OracleConnection) dr.connect(URL, prop);

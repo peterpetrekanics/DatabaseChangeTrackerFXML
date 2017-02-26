@@ -97,13 +97,15 @@ public class MainController implements Initializable {
 					            } else if (type == Types.DECIMAL || type == Types.DOUBLE) {
 					                 System.out.print(rs2.getInt(i));
 					            } else if (type == Types.FLOAT || type == Types.NUMERIC) {
-					                 System.out.print(rs2.getInt(i));
+					                 System.out.print(rs2.getDouble(i));
 					            } else if (type == Types.BOOLEAN) {
 					                 System.out.print(rs2.getBoolean(i));
 					            } else if (type == Types.DATE) {
 					                 System.out.print(rs2.getDate(i));
 					            } else if (type == Types.TIMESTAMP) {
 					                 System.out.print(rs2.getTimestamp(i));
+					            } else if (type == Types.CLOB) {
+					                 System.out.print(rs2.getClob(i));
 					            } else {
 					            	System.out.print(rs2.getShort(i));
 					            }

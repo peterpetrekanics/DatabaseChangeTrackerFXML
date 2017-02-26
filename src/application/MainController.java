@@ -30,13 +30,18 @@ public class MainController implements Initializable {
 	Properties prop = null;
 	DatabaseChangeRegistration dcr = null;
 	@FXML
-    private TextField odbHostnameField;
+	public TextField odbIP_addressField;
+	public TextField odbDB_nameField;
+	public TextField odbUsernameField;
+	public TextField odbPasswordField;
 	ResultSet rs;
 	Statement stmt;
+	String actualTableName = "";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("this runs every time");
+		
 		
 	}
 	
@@ -44,6 +49,8 @@ public class MainController implements Initializable {
 		System.out.println("The connectDB method starts");
 		conn = connect();
 		System.out.println("Connection successful");
+		System.out.println(odbUsernameField.getText()+odbPasswordField.getText());
+		System.out.println(odbDB_nameField.getText());
 		prop.setProperty(OracleConnection.DCN_NOTIFY_ROWIDS, "true");
 		dcr = conn
 				.registerDatabaseChangeNotification(prop);
@@ -54,14 +61,16 @@ public class MainController implements Initializable {
 					String myRowId = dce.getTableChangeDescription()[0]
 							.getRowChangeDescription()[0].getRowid()
 							.stringValue();
-					System.out.println("Changed row id : " + myRowId);
+					actualTableName = dce.getTableChangeDescription()[0].getTableName();
+//					System.out.println("Changed row id : " + myRowId);
+					System.out.println("");
+					System.out.println("This table was changed: " + actualTableName);
 					System.out.println("In case of db UPDATE or INSERT, this is the updated/new row's content: ");
 					
 					Statement stmt2;
 					try {
 						stmt2 = conn.createStatement();
-//						ResultSet rs2 = stmt2.executeQuery("select * from table1 where rowid='"+ myRowId +"'");
-						ResultSet rs2 = stmt2.executeQuery("select * from user_ where rowid='"+ myRowId +"'");
+						ResultSet rs2 = stmt2.executeQuery("select * from " + actualTableName + " where rowid='"+ myRowId +"'");
 						ResultSetMetaData resultSetMetaData = rs2.getMetaData();
 						
 						while (rs2.next()) {
@@ -190,14 +199,14 @@ public class MainController implements Initializable {
 //		prop.setProperty(OracleConnection.NTF_LOCAL_HOST,"192.168.0.2");
 		prop.setProperty("user", USERNAME);
 		prop.setProperty("password", PASSWORD);
-		if(odbHostnameField.getText().equals("")){
+		if(odbIP_addressField.getText().equals("")){
 //			System.out.println("url null");
 //			return null;
-//			URL = "jdbc:oracle:thin:system/password@//localhost:1521/dbtracker1";
-			URL = "jdbc:oracle:thin:system/password@//localhost:1521/lrtest1";
+			URL = "jdbc:oracle:thin:system/password@//localhost:1521/dbtracker1";
+//			URL = "jdbc:oracle:thin:system/password@//localhost:1521/lrtest1";
 		} else {
-//			URL = "jdbc:oracle:thin:system/password@//"+odbHostnameField.getText()+":1521/dbtracker1";
-			URL = "jdbc:oracle:thin:system/password@//"+odbHostnameField.getText()+":1521/lrtest1";
+			URL = "jdbc:oracle:thin:system/password@//"+odbIP_addressField.getText()+":1521/dbtracker1";
+//			URL = "jdbc:oracle:thin:system/password@//"+odbIP_addressField.getText()+":1521/lrtest1";
 		}
 		
 		return (OracleConnection) dr.connect(URL, prop);

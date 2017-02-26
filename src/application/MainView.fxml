@@ -1,25 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="354.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<AnchorPane prefHeight="180.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
       <BorderPane prefHeight="319.0" prefWidth="347.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <right>
-            <Button mnemonicParsing="false" onAction="#disconnectDB" text="Disconnect db" BorderPane.alignment="CENTER" />
-         </right>
-         <left>
-            <Button mnemonicParsing="false" onAction="#connectDB" text="Connect+monitor db" BorderPane.alignment="CENTER" />
-         </left>
-         <bottom>
-            <Button mnemonicParsing="false" onAction="#test" text="Check connection" BorderPane.alignment="CENTER" />
-         </bottom>
-         <center>
-            <TextField fx:id="odbHostnameField" alignment="BOTTOM_CENTER" BorderPane.alignment="CENTER" />
-         </center>
+         <top>
+            <GridPane prefHeight="180.0" prefWidth="511.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="132.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="121.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="259.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#connectDB" prefHeight="21.0" prefWidth="220.0" text="Connect+monitor db" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <padding>
+                        <Insets right="8.0" />
+                     </padding></Button>
+                  <TextField fx:id="odbIP_addressField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <padding>
+                        <Insets right="8.0" />
+                     </padding></TextField>
+                  <Button mnemonicParsing="false" onAction="#disconnectDB" prefHeight="21.0" prefWidth="221.0" text="Disconnect db" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <padding>
+                        <Insets right="8.0" />
+                     </padding></Button>
+                  <Button mnemonicParsing="false" onAction="#test" prefHeight="21.0" prefWidth="220.0" text="Check connection" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <padding>
+                        <Insets right="8.0" />
+                     </padding></Button>
+                  <Label prefHeight="21.0" prefWidth="110.0" text="IP_address:" GridPane.rowIndex="2">
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="8.0" right="8.0" />
+                     </GridPane.margin></Label>
+                  <Label prefHeight="21.0" prefWidth="110.0" text="Username:" GridPane.rowIndex="4">
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="8.0" right="8.0" />
+                     </GridPane.margin></Label>
+                  <Label prefHeight="21.0" prefWidth="110.0" text="Password:" GridPane.rowIndex="5">
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="8.0" right="8.0" />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="odbDB_nameField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <padding>
+                        <Insets right="8.0" />
+                     </padding></TextField>
+                  <TextField fx:id="odbUsernameField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <padding>
+                        <Insets right="8.0" />
+                     </padding></TextField>
+                  <TextField fx:id="odbPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <padding>
+                        <Insets right="8.0" />
+                     </padding>
+                  </TextField>
+                  <Label prefHeight="21.0" prefWidth="110.0" text="DB_name:" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="8.0" right="8.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </GridPane>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>
